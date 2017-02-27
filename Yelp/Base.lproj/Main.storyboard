@@ -19,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GGh-H1-2Z2">
@@ -28,7 +28,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="119" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c1L-1y-QmR">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="businessCell" rowHeight="119" id="EgU-Ke-Gzu" customClass="BusinessCell" customModule="Yelp" customModuleProvider="target">
@@ -137,7 +137,12 @@
                     <navigationItem key="navigationItem" id="Mui-t9-5pg">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="g6U-Jc-trM">
                             <connections>
-                                <segue destination="Ixx-oy-Ywk" kind="show" id="V8L-hN-PhH"/>
+                                <segue destination="Ixx-oy-Ywk" kind="show" identifier="filtersSegue" id="V8L-hN-PhH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="lqF-iF-atC">
+                            <connections>
+                                <segue destination="t6N-lO-731" kind="show" identifier="mapSegue" id="cFv-hw-Z4B"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -293,6 +298,29 @@
                                             <outlet property="switchButton" destination="u0E-1t-rnU" id="yHE-nJ-YNH"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="showMoreCell" rowHeight="45" id="ItK-W3-elS" customClass="ShowMoreCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="208" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ItK-W3-elS" id="iJA-AM-G5I">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show all" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Swx-um-Eyy">
+                                                    <rect key="frame" x="128" y="12" width="64" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Swx-um-Eyy" firstAttribute="centerX" secondItem="iJA-AM-G5I" secondAttribute="centerX" id="M5G-kR-3ty"/>
+                                                <constraint firstItem="Swx-um-Eyy" firstAttribute="centerY" secondItem="iJA-AM-G5I" secondAttribute="centerY" id="scb-zM-Ztx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="showAllLabel" destination="Swx-um-Eyy" id="l9E-62-1G9"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -324,12 +352,47 @@
             </objects>
             <point key="canvasLocation" x="2501" y="37"/>
         </scene>
+        <!--MapVC-->
+        <scene sceneID="V0u-ba-Zyt">
+            <objects>
+                <viewController id="t6N-lO-731" customClass="MapVC" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="D9T-O2-shq"/>
+                        <viewControllerLayoutGuide type="bottom" id="WMa-Ib-zp0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IR7-tD-MyY">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G8h-uc-Zf2">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <connections>
+                                    <outlet property="delegate" destination="t6N-lO-731" id="yZi-1q-j6s"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="G8h-uc-Zf2" firstAttribute="leading" secondItem="IR7-tD-MyY" secondAttribute="leading" id="AQd-3r-1oq"/>
+                            <constraint firstItem="G8h-uc-Zf2" firstAttribute="top" secondItem="D9T-O2-shq" secondAttribute="bottom" id="Eve-GL-kIJ"/>
+                            <constraint firstAttribute="trailing" secondItem="G8h-uc-Zf2" secondAttribute="trailing" id="Fkc-J9-PVy"/>
+                            <constraint firstItem="WMa-Ib-zp0" firstAttribute="top" secondItem="G8h-uc-Zf2" secondAttribute="bottom" id="mJR-5d-6Ug"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="G8h-uc-Zf2" id="IGf-FY-VjO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JoG-MS-mIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684" y="-849"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HhR-YI-Q8k">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hDX-Yq-gRR" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9cz-6t-shV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="9cz-6t-shV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -345,7 +408,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ace-tl-gpi">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ixx-oy-Ywk" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FiltersNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Ixx-oy-Ywk" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c8m-sg-nso">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

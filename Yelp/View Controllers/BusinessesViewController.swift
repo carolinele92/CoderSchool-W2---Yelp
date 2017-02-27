@@ -9,13 +9,14 @@
 import UIKit
 import AFNetworking
 
+
 class BusinessesViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
-    
+
     var searchText: String = ""
     var sortMode = 0
     var categories = [String]()
@@ -24,7 +25,6 @@ class BusinessesViewController: UIViewController {
     
     var isMoreDataLoading = false
     var loadingMoreView: InfiniteScrollActivityView?
-
     
     
     override func viewDidLoad() {
@@ -45,6 +45,7 @@ class BusinessesViewController: UIViewController {
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
         
+        
 
         Business.search(with: "Thai") { (businesses: [Business]?, error: Error?) in
             if let businesses = businesses {
@@ -53,9 +54,11 @@ class BusinessesViewController: UIViewController {
                 for business in businesses {
                     print(business.name!)
                     print(business.address!)
+                    
                 }
             
                 self.tableView.reloadData()
+                
             
             }
         }
@@ -74,14 +77,31 @@ class BusinessesViewController: UIViewController {
         
     
     }
+
     
+// --- Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navVC = segue.destination as! UINavigationController
-        let filterVC = navVC.topViewController as! FiltersVC
+        if segue.identifier == "filtersSegue" {
+            let navVC = segue.destination as! UINavigationController
+            let filterVC = navVC.topViewController as! FiltersVC
         
-        filterVC.delegate = self
+            filterVC.delegate = self
+        }
+        
+        if segue.identifier == "mapSegue" {
+            let nextVC = segue.destination as! MapVC
+            nextVC.businesses = businesses
+        }
     }
-   
+    
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        self.view.endEditing(true)
+    }
+    
+    
+    
 }
 
 // --- TableView
@@ -193,7 +213,7 @@ extension BusinessesViewController: UITableViewDataSource, UITableViewDelegate, 
 extension BusinessesViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+   
         Business.search(with: searchText, sort: nil, categories: nil, deals: nil, distance: nil) {
                 (businesses: [Business]?, error: Error?) in
             

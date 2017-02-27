@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 class Business: NSObject {
     let name: String?
@@ -16,6 +17,8 @@ class Business: NSObject {
     let distance: String?
     let ratingImageURL: URL?
     let reviewCount: NSNumber?
+    var latitude: Double? = 0.0
+    var longitude: Double? = 0.0
 
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
@@ -42,8 +45,17 @@ class Business: NSObject {
                 }
                 address += neighborhoods![0] as! String
             }
+            
+            let coordinate = location!["coordinate"] as? NSDictionary
+            if coordinate != nil {
+                
+                self.latitude = coordinate?.value(forKey: "latitude") as? Double
+                self.longitude = coordinate?.value(forKey: "longitude") as? Double
+            }
+            
         }
         self.address = address
+        
 
         let categoriesArray = dictionary["categories"] as? [[String]]
         if categoriesArray != nil {
@@ -73,6 +85,8 @@ class Business: NSObject {
         }
 
         reviewCount = dictionary["review_count"] as? NSNumber
+        
+        
     }
 
     class func businesses(array: [NSDictionary]) -> [Business] {
@@ -85,11 +99,11 @@ class Business: NSObject {
     }
 
     class func search(with term: String, completion: @escaping ([Business]?, Error?) -> ()) {
-        YelpClient.shared().search(with: term, completion: completion)
+        _ = YelpClient.shared().search(with: term, completion: completion)
     }
 
     class func search(with term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, distance: Int?, completion: @escaping ([Business]?, Error?) -> ()) -> () {
         
-        YelpClient.shared().search(with: term, sort: sort, categories: categories, deals: deals, distance: distance, completion: completion)
+        _ = YelpClient.shared().search(with: term, sort: sort, categories: categories, deals: deals, distance: distance, completion: completion)
     }
 }
