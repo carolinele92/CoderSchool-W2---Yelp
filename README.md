@@ -1,4 +1,4 @@
-# Project 2 - *Name of App Here*
+# Project 2 - Yelp
 
 **Name of your app** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
@@ -41,13 +41,13 @@ The following **additional** features are implemented:
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. MapView
-2. Extendable TableView
+2. Expandable TableView
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![video](Yelp_Walkthrough.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
